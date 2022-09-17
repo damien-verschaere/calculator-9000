@@ -16,7 +16,7 @@ function Calculator() {
     const [operation, setOperation] = useState('')
     const [resultat, setResultat] = useState('')
     const [sql, setsql] = useState('')
-    // const [nineThousand,setNineThousand]=useState('')
+
 
     // FIN VARIABLE ET CONSTANTE----------------------------------------------------------------------------
 
@@ -28,18 +28,24 @@ function Calculator() {
         // console.log(event)
         switch (event) {
             case "=":
-                console.log("je suis dans le egal")
+                // console.log("je suis dans le egal")
                 setOperation(operation + event)
                 setsql(operation)
-                let test = eval(operation)
-                setOperation(test)
-                if (test > 9000) {
-                    setResultat(test)
-                    // setOperation('') 
-
+                //  EVAL PEUT ETRE DANGEREUX INJECTIONS POSSIBLES MAIS A CE NIVEAU DE PROJET SONT UTILISATION ME SEMBLE BONNE 
+                let res = eval(operation)
+                setOperation(res)
+                if (res > 9000) {
+                    setResultat(res)
                 }
                 break;
+
+            case 'DEL':
+                setOperation('')
+                setResultat(0)
+                break;
+          
             case "save":
+                // console.log("je passse dans le save")
                 let data = sql
                 let result = eval(operation)
                 console.log("je passe dans le save")
@@ -47,6 +53,8 @@ function Calculator() {
                 formdata.append('calcul', encodeURIComponent(data))
                 formdata.append('result', encodeURIComponent(result))
                 fetch("http://localhost:80/calculator-9000/src/php/Calcul.php?envoi=1", {
+
+                    // MODE NO CORS CAR ERREUR DE CORS QUI BLOQUE LA REQUETE  
                     mode: 'no-cors',
                     method: "POST",
                     body: formdata
@@ -57,6 +65,7 @@ function Calculator() {
                 setOperation(operation + event)
                 break;
         }
+
     }
 
     // FIN HANDLE FUNCTION--------------------------------------------------------------------------------
@@ -71,15 +80,22 @@ function Calculator() {
                 <GreatOperationButton Click={Click} />
             </div>
             <div className="divButton">
-            <MagnificientEqualButton Click={Click} />
-            <Save Click={Click} />
+                <MagnificientEqualButton Click={Click} />
+                <Save Click={Click} />
             </div>
-            
+
             <table className="tab" >
-   
-                <tr>
-                    <AfficheCalcul />
-                </tr>
+                <thead>
+                    <tr  >
+                        <th style={{color:"white"}}>mes calculs</th>
+                        <th style={{color:"white"}}>mes resultats</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <AfficheCalcul />
+                    </tr>
+                </tbody>
             </table>
         </div>
     )
