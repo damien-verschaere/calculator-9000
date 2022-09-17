@@ -1,0 +1,16 @@
+.chiffre{
+    display: flex;
+    flex-wrap: wrap;
+    width: 30%;
+    justify-content: center;
+    margin: 6%;
+}
+.buttonChiffre{
+    height: 80px;
+    width: 80px;
+    background-color: #7289da;
+    border-radius: 30px;
+    border:white solid 2px;
+    margin: 0.5%;
+    color: white;
+}

@@ -1,0 +1,13 @@
+.generalScreen{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25%;
+}
+.entrerUser,.resultatCalcul{
+    margin: 0.5%;
+    height: 75px;
+    width: 100%;
+    border: 2px solid black;
+    background-color: white;
+}
